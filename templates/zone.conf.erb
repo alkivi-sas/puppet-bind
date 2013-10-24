@@ -12,14 +12,3 @@ $TTL    86400
                           86400 )       ; Negative Cache TTL
 ;
 @               IN      NS      ns.<%= @domain_name %>.
-
-<% @hosts.each do |name, data| -%>
-<%= name %>	IN	A		<%= @network_prefix %><%= data['ip'] %>
-<% end %>
-ns              IN      A       <%= @network_prefix %><%= @ns_ip %>
-gateway         IN      A       <%= @network_prefix %><%= @gateway_ip %>
-alkibox			IN		CNAME	ns
-puppet  		IN		CNAME	ns
-backup  		IN		CNAME	ns
-ldap            IN      CNAME   ns
-cloud           IN      CNAME   ns

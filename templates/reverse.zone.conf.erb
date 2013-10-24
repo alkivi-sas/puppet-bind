@@ -12,8 +12,3 @@ $TTL    86400
                           86400 )       ; Negative Cache TTL
 ;
 @               IN      NS      ns.<%= @domain_name %>.
-<% @hosts.each do |name, data| -%>
-<%= data['ip'].split('.')[1] %>	IN	PTR		<%= name%>.<%= @domain_name %>.
-<% end %>
-<%=  @ns_ip.split('.')[1] %>	IN	PTR	ns.<%= @domain_name %>.
-<%=  @gateway_ip.split('.')[1] %>	IN	PTR	gateway.<%= @domain_name %>.

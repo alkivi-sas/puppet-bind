@@ -8,21 +8,33 @@ This module will install and configure a bind9 server
 
 ```puppet
 class { 'bind': 
-  domain_name         => 'mydomain.local',
-  network_address     => '192.168.0.0',
-  vpn_network_address => '192.168.1.0',
-  network_prefix      => '192.168.0',
-  fallback_dns        => '8.8.8.8',
-  ns_ip               => '192.168.0.253',
-  gateway_ip          => '192.168.0.254',
-  network_length      => '24',
-  hosts               => { 'toto' => { 'ip' => '.101' } },
+  domain_name     => 'mydomain.local',
+  network_address => '192.168.0.0',
+  fallback_dns    => '8.8.8.8',
+  extra_allow     => [],
 }
 ```
-This will do the typical install, configure and service management. 
-Lots of this is redundant, need to make this cleaner. 
-Host configuration will be separated shortly
 
+extra_allow definition is used in allow-recursion and allow-query-cache
+
+
+### Add CNAME alias
+```puppet
+bind::alias{ 'alkibox':
+  type   => 'CNAME',
+  dest   => 'ns',
+}
+```
+
+### Add A alias
+```puppet
+bind::alias{ 'ns':
+  type   => 'A',
+  dest   => '192.168.20.2',
+}
+```
+
+Adding an A alias will automatically create the associated PTR record
 
 ## Limitations
 

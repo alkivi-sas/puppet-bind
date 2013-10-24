@@ -2,15 +2,10 @@
 class bind (
   $domain_name,
   $network_address,
-  $vpn_network_address,
-  $network_prefix,
   $fallback_dns,
-  $hosts,
-  $ns_ip,
-  $gateway_ip,
-  $network_length     = 24,
-  $vpn_network_length = 24,
-  $motd               = true,
+  $extra_allow         = [],
+  $motd                = true,
+  $firewall            = true,
 ) {
 
   if($motd)
@@ -20,17 +15,17 @@ class bind (
 
   validate_string($domain_name)
   validate_string($network_address)
-  validate_string($vpn_network_address)
-  validate_string($network_prefix)
   validate_string($fallback_dns)
-  validate_hash($hosts)
-  validate_string($ns_ip)
-  validate_string($gateway_ip)
+  validate_array($extra_allow)
 
-  $extra_allow = [
-    "${network_address}/${network_length}",
-    "${vpn_network_address}/${vpn_network_length}"
-  ]
+  if(!is_ip_address($network_address))
+  {
+    fail("Parameter network_address is not an ip : ${network_address}")
+  }
+
+  # Split network address, remove latest value and join back
+  # IPV6 fucker ?
+  $network_prefix = join(delete_at(split($network_address, '[.]'), 3), '.')
 
   # declare all parameterized classes
   class { 'bind::params': }

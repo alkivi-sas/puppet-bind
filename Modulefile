@@ -1,5 +1,5 @@
 name    'alkivi-bind'
-version '0.0.1'
+version '0.1.0'
 source 'https://github.com/alkivi-sas/puppet-bind'
 author 'alkivi'
 license 'LGPLv3'
@@ -7,3 +7,5 @@ summary 'Controls bind9 server'
 description 'Setup bind9 server'
 project_page 'https://github.com/alkivi-sas/puppet-bind'
 dependency 'puppetlabs/stdlib', '>3.x'
+dependency 'puppetlabs/concat', '>1.x'
+
