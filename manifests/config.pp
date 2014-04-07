@@ -7,8 +7,17 @@ class bind::config () {
     notify  => Class['bind::service'],
   }
 
-  file {  $bind::params::bind_service_config:
+  concat { $bind::params::bind_service_config:
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    notify => Class['bind::service'],
+  }
+
+  concat::fragment { "main_conf":
+    target  => $bind::params::bind_service_config,
     content => template('bind/named.conf.erb'),
+    order   => 01,
   }
 
   file {  $bind::params::bind_service_default:
