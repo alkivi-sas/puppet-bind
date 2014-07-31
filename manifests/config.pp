@@ -1,4 +1,8 @@
-class bind::config () {
+class bind::config (
+    $extra_allow    = $bind::extra_allow,
+    $domain_name    = $bind::domain_name,
+    $network_prefix = $bind::network_prefix,
+) {
   File {
     ensure  => present,
     owner   => 'root',
