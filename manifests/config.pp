@@ -1,7 +1,8 @@
 class bind::config (
-    $extra_allow    = $bind::extra_allow,
-    $domain_name    = $bind::domain_name,
-    $network_prefix = $bind::network_prefix,
+  $extra_allow    = $bind::extra_allow,
+  $domain_name    = $bind::domain_name,
+  $network_prefix = $bind::network_prefix,
+  $fallback_dns   = $bind::fallback_dns,
 ) {
   File {
     ensure  => present,
